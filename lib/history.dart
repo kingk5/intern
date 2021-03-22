@@ -1,44 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
-class HistoryScreen extends StatefulWidget {
-  @override
-  _HistoryScreenState createState() => _HistoryScreenState();
-}
+class HistoryScreen extends StatelessWidget {
+  final List<String> advice;
+  final List<String> timeStamp;
 
-class _HistoryScreenState extends State<HistoryScreen> {
-  List<String> advice = [];
-  List<String> timeStamp = [];
-  int dataAdded = 0;
-
-  @override
-  void initState() {
-    super.initState();
-    getData();
-  }
-
-  getData() async {//get data from shared preferences and Separate between timestamp and advice
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    bool checkValue = prefs.containsKey('apiData');//check if shared preferences exists
-    if (checkValue) {
-      List<String> value = prefs.getStringList("apiData");
-      int i = 0;
-      for (String val in value) {
-        if (i % 2 == 0) {
-          timeStamp.add(val);
-        } else {
-          advice.add(val);
-        }
-        i++;
-      }
-      setState(() {
-        dataAdded = 1;
-      });
-    } else {
-      dataAdded = 2;
-    }
-  }
+  HistoryScreen({this.advice, this.timeStamp});
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +22,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
           iconSize: 30,
           padding: EdgeInsets.only(right: 15),
           onPressed: () {
-            Navigator.pop(context);//return to previous screen
+            Navigator.pop(context); //return to previous screen
           },
           icon: Icon(
             Icons.arrow_back_outlined,
@@ -64,29 +31,24 @@ class _HistoryScreenState extends State<HistoryScreen> {
         ),
       ),
       body: Container(
-        child: dataAdded == 1//check if data is received
-            ? ListView.builder(
-                itemCount: advice.length,
-                itemBuilder: (BuildContext cxt, int index) {
-                  return Container(
-                    padding: EdgeInsets.symmetric(vertical: 8, horizontal: 8),
-                    child: ListTile(
-                      leading: Text(
-                        timeStamp[index],
-                        style: TextStyle(color: Colors.black),
-                      ),
-                      tileColor: Colors.grey[100],
-                      title: Text(
-                        advice[index],
-                        style: TextStyle(color: Colors.black),
-                      ),
+          child: ListView.builder(
+              itemCount: advice.length,
+              itemBuilder: (BuildContext cxt, int index) {
+                return Container(
+                  padding: EdgeInsets.symmetric(vertical: 8, horizontal: 8),
+                  child: ListTile(
+                    leading: Text(
+                      timeStamp[index],
+                      style: TextStyle(color: Colors.black),
                     ),
-                  );
-                })
-            : dataAdded == 2//Check if there is data to print
-                ? Text("No Data")
-                : CircularProgressIndicator(),
-      ),
+                    tileColor: Colors.grey[100],
+                    title: Text(
+                      advice[index],
+                      style: TextStyle(color: Colors.black),
+                    ),
+                  ),
+                );
+              })),
     );
   }
 }
