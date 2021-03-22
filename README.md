@@ -2,7 +2,11 @@
 
 A new Flutter application.
 
-## Getting Started
+## Instructions
+The Refresh Icon Loads New Advices<br>
+History Icon Shows All The Previous Ones.
+
+### Getting Started
 
 This project is a starting point for a Flutter application.
 
