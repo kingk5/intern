@@ -2,8 +2,8 @@
 
 A new Flutter application.
 
-## Instructios
-The Refresh Icon Loads New Advices
+## Instructions
+The Refresh Icon Loads New Advices<br>
 History Icon Shows All The Previous Ones.
 
 ### Getting Started
