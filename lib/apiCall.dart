@@ -6,12 +6,12 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'apiData.dart';
 import 'history.dart';
 
-class apiCall extends StatefulWidget {
+class ApiCall extends StatefulWidget {
   @override
-  _apiCallState createState() => _apiCallState();
+  _ApiCallState createState() => _ApiCallState();
 }
 
-class _apiCallState extends State<apiCall> {
+class _ApiCallState extends State<ApiCall> {
   String advi;
   bool got = false;
 
@@ -24,7 +24,7 @@ class _apiCallState extends State<apiCall> {
     setState(() {
       got = false;
     });
-    dataFromApi p = await getData();
+    DataFromApi p = await getData();
     SharedPreferences prefs = await SharedPreferences.getInstance();
     bool checkValue = prefs.containsKey('apiData');//check if shared preferences exists
     if (checkValue) {
@@ -75,7 +75,7 @@ class _apiCallState extends State<apiCall> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => history(),//Calls the second screen of history
+                      builder: (context) => HistoryScreen(),//Calls the second screen of history
                     ));
               },
               icon: Icon(
@@ -99,11 +99,11 @@ class _apiCallState extends State<apiCall> {
   }
 }
 
-Future<dataFromApi> getData() async {//fetch data from api and return the data
+Future<DataFromApi> getData() async {//fetch data from api and return the data
   final response = await http.get("https://api.adviceslip.com/advice");
   if (response.statusCode == 200) {
     Map<String, dynamic> jsonData = jsonDecode(response.body);
-    return dataFromApi.fromJson(jsonData);
+    return DataFromApi.fromJson(jsonData);
   } else {
     throw Exception();
   }

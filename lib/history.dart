@@ -2,12 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class history extends StatefulWidget {
+class HistoryScreen extends StatefulWidget {
   @override
-  _historyState createState() => _historyState();
+  _HistoryScreenState createState() => _HistoryScreenState();
 }
 
-class _historyState extends State<history> {
+class _HistoryScreenState extends State<HistoryScreen> {
   List<String> advice = [];
   List<String> timeStamp = [];
   int dataAdded = 0;

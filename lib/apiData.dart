@@ -1,9 +1,9 @@
-class dataFromApi {
+class DataFromApi {
   final advice;
 
-  dataFromApi({this.advice});
+  DataFromApi({this.advice});
 
-  factory dataFromApi.fromJson(final json) {
-    return dataFromApi(advice: json["slip"]["advice"]);
+  factory DataFromApi.fromJson(final json) {
+    return DataFromApi(advice: json["slip"]["advice"]);
   }
 }
